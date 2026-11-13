@@ -7,6 +7,7 @@ import Ledger from './pages/Ledger.vue'
 import Quarantine from './pages/Quarantine.vue'
 import Sink from './pages/Sink.vue'
 import Cursors from './pages/Cursors.vue'
+import Snapshot from './pages/Snapshot.vue'
 
 export default createRouter({
   history: createWebHistory(),
@@ -15,6 +16,7 @@ export default createRouter({
     { path: '/streams', component: Streams },
     { path: '/preview', component: Preview },
     { path: '/apply', component: Apply },
+    { path: '/snapshot', component: Snapshot },
     { path: '/ledger', component: Ledger },
     { path: '/quarantine', component: Quarantine },
     { path: '/sink', component: Sink },

@@ -36,6 +36,11 @@ def run_apply(stream_id: int) -> dict[str, Any]:
             raise ValueError("stream not found")
         if not stream["enabled"]:
             raise ValueError("stream disabled")
+        if stream.get("snapshot_import_id"):
+            raise ValueError(
+                "该流处于快照追平 Lane，请走快照页「追 Live」（/api/snapshots/catchup），"
+                "常规 Apply 不认识快照水位会破坏重叠规则"
+            )
 
         cursor_before = int(stream["apply_cursor"] or 0)
         gap_policy = settings_repo.get(conn, "gap_policy", "stop_quarantine") or "stop_quarantine"

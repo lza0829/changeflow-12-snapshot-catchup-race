@@ -1,0 +1,3 @@
+{"snapshot_id":"ORD-SNAP-001","snapshot_ts":"2026-11-01T08:20:00Z","watermark_seq":5,"entity_type":"order","note":"模拟 08:20:00 对 Orders 主题做的一版快照；watermark=seq5，seq1..5 的变更已折叠进快照态，live 追平时落在重叠区的事件必须跳过/幂等吞掉。快照只含当时仍存活的实体，已删除的 ORD-1002 不出现在快照中。"}
+{"entity_key":"ORD-1001","last_seq":2,"last_event_ts":"2026-11-01T08:05:00Z","payload":{"status":"paid","amount":120.5,"sku":"SKU-A"}}
+{"entity_key":"ORD-1003","last_seq":5,"last_event_ts":"2026-11-01T08:20:00Z","payload":{"status":"created","amount":45.0,"sku":"SKU-C"}}

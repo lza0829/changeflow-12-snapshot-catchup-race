@@ -62,5 +62,29 @@ def list_sink(conn: sqlite3.Connection) -> list[dict[str, Any]]:
     return out
 
 
+def list_sink_for_stream(conn: sqlite3.Connection, stream_id: int) -> list[dict[str, Any]]:
+    rows = conn.execute(
+        """
+        SELECT id, stream_id, entity_key, payload_json, last_seq, last_event_ts, updated_at
+        FROM sink_records WHERE stream_id=? ORDER BY entity_key
+        """,
+        (stream_id,),
+    ).fetchall()
+    out = []
+    for r in rows:
+        item = dict(r)
+        item["payload"] = json.loads(item.pop("payload_json") or "{}")
+        out.append(item)
+    return out
+
+
 def count_sink(conn: sqlite3.Connection) -> int:
     return int(conn.execute("SELECT COUNT(*) c FROM sink_records").fetchone()["c"])
+
+
+def count_for_stream(conn: sqlite3.Connection, stream_id: int) -> int:
+    return int(
+        conn.execute(
+            "SELECT COUNT(*) c FROM sink_records WHERE stream_id=?", (stream_id,)
+        ).fetchone()["c"]
+    )
